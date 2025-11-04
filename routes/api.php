@@ -2,16 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\{
-    AuthController, IndexController, TypeController, GeneratorsController, 
-    ExpensesController, GenExpensesController, DebtController, 
-    AmperesController, ReportsController
+    AuthController,
+    IndexController,
+    TypeController,
+    GeneratorsController,
+    ExpensesController,
+    GenExpensesController,
+    DebtController,
+    AmperesController,
+    ReportsController
 };
+// Authentication Routes
+Route::post('login', [AuthController::class, 'login']);
 
 // Ensure API always responds in JSON
 Route::middleware(['Json'])->group(function () {
 
-    // Authentication Routes
-    Route::post('login', [AuthController::class, 'login']);
 
     Route::middleware('auth:sanctum')->group(function () {
 
@@ -29,7 +35,7 @@ Route::middleware(['Json'])->group(function () {
         });
 
         // Change Password
-        Route::post('change-password', [AuthController::class,'changePassword']);
+        Route::post('change-password', [AuthController::class, 'changePassword']);
 
         // Admin Routes (Only for super_admin & manager)
         Route::middleware(['Role:super_admin,manager'])->group(function () {
